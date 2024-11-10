@@ -16,10 +16,6 @@ int main(int argc, char *argv[])
 	int ind_filepath = check_args(argc, argv);
 	char *filepath = argv[ind_filepath];
 
-	initscr();
-	curs_set(0);
-	noecho();
-
 	FILE *file = fopen(filepath, READ);
 
 	// initialize
@@ -28,6 +24,15 @@ int main(int argc, char *argv[])
 	parse_file(file, lines, START_NUM_LINES, START_NUM_SLIDES);
 
 	fclose(file);
+
+	if (lines->content == NULL) {
+		fprintf(stderr, "problem with parsing file\n");
+		exit(1);
+	}
+
+	initscr();
+	curs_set(0);
+	noecho();
 
 	int c;
 	int max_num_slides = get_max_slides(lines);
