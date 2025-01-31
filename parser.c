@@ -52,9 +52,8 @@ char *skip_blanklines(FILE **file)
 
 int is_text(char *line)
 {
-	for (int ind = 0; ind < strlen(line); ind++) {
-		if (isalnum(line[ind]))
+	for (int ind = 0; ind < strlen(line); ind++)
+		if (!isspace(line[ind]))
 			return 1;
-	}
 	return 0;
 }
