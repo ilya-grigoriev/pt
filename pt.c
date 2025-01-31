@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+#include <signal.h>
 #include "line.h"
 #include "parser.h"
 #include "config.def.h"
@@ -11,8 +13,13 @@
 
 #define READ "r"
 
+void sig(int n) {}
+
 int main(int argc, char *argv[])
 {
+	setlocale(LC_ALL, "");
+	signal(SIGINT, sig);
+
 	int ind_filepath = check_args(argc, argv);
 	char *filepath = argv[ind_filepath];
 
@@ -51,6 +58,7 @@ int main(int argc, char *argv[])
 		print_lines(lines, cur_num_slide);
 		refresh();
 	} while ((c = getch()) != 'q');
+
 	endwin();
 	curs_set(1);
 }
