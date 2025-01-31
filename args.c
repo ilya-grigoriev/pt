@@ -7,6 +7,7 @@
 
 int cols_margin = COLS_MARGIN;
 int rows_margin = ROWS_MARGIN;
+int is_center = 0;
 
 int check_args(int argc, char *argv[])
 {
@@ -21,6 +22,8 @@ int check_args(int argc, char *argv[])
 			sscanf(argv[++ind], "%d", &cols_margin);
 		else if (strcmp(argv[ind], "-r") == 0 && ind + 1 < argc)
 			sscanf(argv[++ind], "%d", &rows_margin); 
+		else if (strcmp(argv[ind], "-cen") == 0 || strcmp(argv[ind], "--center") == 0)
+			is_center = 1;
 		else if (access(argv[ind], F_OK) != 0) {
 			fprintf(stderr, "file doesn't exist\n");
 			exit(1);
