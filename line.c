@@ -6,7 +6,7 @@
 
 void add_line(Line *lines, char *line)
 {
-	lines->content = malloc(strlen(line));
+	lines->content = malloc(strlen(line) + 1);
 	strcpy(lines->content, line);
 }
 
