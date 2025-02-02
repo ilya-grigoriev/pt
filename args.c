@@ -18,10 +18,20 @@ int check_args(int argc, char *argv[])
 
 	int ind_filepath = 1;
 	for (int ind = 1; ind < argc; ind++)
-		if (strcmp(argv[ind], "-c") == 0 && ind + 1 < argc)
-			sscanf(argv[++ind], "%d", &cols_margin);
-		else if (strcmp(argv[ind], "-r") == 0 && ind + 1 < argc)
-			sscanf(argv[++ind], "%d", &rows_margin); 
+		if (strcmp(argv[ind], "-c") == 0)
+			if (ind + 1 < argc)
+				sscanf(argv[++ind], "%d", &cols_margin);
+			else {
+				fprintf(stderr, "no value for columns\n");
+				exit(1);
+			}
+		else if (strcmp(argv[ind], "-r") == 0)
+			if (ind + 1 < argc)
+				sscanf(argv[++ind], "%d", &rows_margin); 
+			else {
+				fprintf(stderr, "no value for rows\n");
+				exit(1);
+			}
 		else if (strcmp(argv[ind], "-cen") == 0 || strcmp(argv[ind], "--center") == 0)
 			is_center = 1;
 		else if (access(argv[ind], F_OK) != 0) {
