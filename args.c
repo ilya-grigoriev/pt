@@ -9,20 +9,9 @@ int cols_margin = COLS_MARGIN;
 int rows_margin = ROWS_MARGIN;
 int is_center = 0;
 
-int is_value_exists(int cur_ind, int argc)
-{
-	return cur_ind + 1 < argc;
-}
-
-void raise_error(char *message)
-{
-	fprintf(stderr, message);
-	exit(1);
-}
-
-int is_str_like_int(char *n) {
-	return atoi(n) > 0;
-}
+int is_value_exists(int cur_ind, int argc);
+void raise_error(char *message);
+int is_str_like_int(char *n);
 
 #define INDEFINITE 0
 int check_args(int argc, char *argv[])
@@ -63,4 +52,19 @@ int check_args(int argc, char *argv[])
 	}
 
 	return ind_filepath;
+}
+
+int is_value_exists(int cur_ind, int argc)
+{
+	return cur_ind + 1 < argc;
+}
+
+void raise_error(char *message)
+{
+	fprintf(stderr, message);
+	exit(1);
+}
+
+int is_str_like_int(char *n) {
+	return atoi(n) > 0;
 }
