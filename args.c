@@ -39,6 +39,10 @@ int check_args(int argc, char *argv[])
 					raise_error("incorrect value for rows\n");
 			else
 				raise_error("no value for rows\n");
+		else if (strcmp(argv[ind], "-h") == 0 || strcmp(argv[ind], "--help") == 0) {
+			printf("usage: pt [-c <value>] [-r <value>] [-cen] [--center] [-h] [--help] filepath\n");
+			exit(0);
+		}
 		else if (strcmp(argv[ind], "-cen") == 0 || strcmp(argv[ind], "--center") == 0)
 			is_center = 1;
 		else if (access(argv[ind], F_OK) != 0)
