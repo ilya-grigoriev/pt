@@ -36,17 +36,27 @@ void parse_file(FILE *file, Line *lines, int cur_num_lines, int cur_num_slides)
 	parse_file(file, lines->next_line, cur_num_lines, cur_num_slides);
 }
 
+int is_end_of_file(FILE *file)
+{
+	return feof(file) == 1;
+}
+
+#define ERROR -1
 char *skip_blanklines(FILE **file)
 {
 	char *line = NULL;
 	size_t len = ALL_LINE;
-	while (getline(&line, &len, *file) != -1)
+	size_t cur_len;
+	while (cur_len = getline(&line, &len, *file) && !is_end_of_file(*file))
 		if (is_text(line) != 1) {
 			is_new_slide = 1;
 			continue;
 		}
 		else
 			break;
+
+	if (cur_len == ERROR)
+		return "";
 	return line;
 }
 
