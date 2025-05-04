@@ -4,6 +4,7 @@
 #include <wchar.h>
 #include "line.h"
 #include "args.h"
+#include "margin.h"
 
 void add_line(Line *lines, char *line)
 {

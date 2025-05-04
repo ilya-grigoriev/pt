@@ -5,8 +5,8 @@
 #include <signal.h>
 #include "line.h"
 #include "parser.h"
-#include "config.def.h"
 #include "args.h"
+#include "margin.h"
 
 #define START_NUM_LINES 0
 #define START_NUM_SLIDES 1
@@ -19,17 +19,14 @@ int main(int argc, char *argv[])
 {
 	setlocale(LC_ALL, "");
 	signal(SIGINT, sig);
+	Line *lines = malloc(sizeof(Line));
 
 	int ind_filepath = check_args(argc, argv);
+	process_margins(argc, argv);
 	char *filepath = argv[ind_filepath];
 
 	FILE *file = fopen(filepath, READ);
-
-	// initialize
-	Line *lines = malloc(sizeof(Line));
-
 	parse_file(file, lines, START_NUM_LINES, START_NUM_SLIDES);
-
 	fclose(file);
 
 	if (lines->content == NULL) {
@@ -40,6 +37,7 @@ int main(int argc, char *argv[])
 	initscr();
 	curs_set(0);
 	noecho();
+	validate_margins();
 
 	int c;
 	int max_num_slides = get_max_slides(lines);

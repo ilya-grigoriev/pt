@@ -3,17 +3,15 @@
 #include <string.h>
 #include <unistd.h>
 #include "args.h"
-#include "config.def.h"
+#include "margin.h"
 
-int cols_margin = COLS_MARGIN;
-int rows_margin = ROWS_MARGIN;
 int is_center = 0;
 
 int is_value_exists(int cur_ind, int argc);
 void raise_error(char *message);
 int is_str_like_int(char *n);
 
-#define INDEFINITE 0
+#define INDEFINITE_INDEX 0
 int check_args(int argc, char *argv[])
 {
 	if (argc < 2) {
@@ -21,7 +19,7 @@ int check_args(int argc, char *argv[])
 		exit(1);
 	}
 
-	int ind_filepath = INDEFINITE;
+	int ind_filepath = INDEFINITE_INDEX;
 	for (int ind = 1; ind < argc; ind++)
 		if (strcmp(argv[ind], "-c") == 0)
 			if (is_value_exists(ind, argc))
@@ -50,7 +48,7 @@ int check_args(int argc, char *argv[])
 		else
 			ind_filepath = ind;
 
-	if (ind_filepath == INDEFINITE) {
+	if (ind_filepath == INDEFINITE_INDEX) {
 		fprintf(stderr, "file isn't provided\n");
 		exit(1);
 	}
